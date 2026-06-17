@@ -50,7 +50,7 @@ const AperturaCaja = () => {
                 <div className="mb-4">
                   <label className="form-label fw-bold">Monto de Apertura</label>
                   <div className="input-group input-group-lg">
-                    <span className="input-group-text">$</span>
+                    <span className="input-group-text">S/.</span>
                     <input 
                       type="number" 
                       step="0.01"

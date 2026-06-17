@@ -61,10 +61,10 @@ const HistorialTurnos = () => {
                     <tr key={turno.id}>
                       <td className="px-4 fw-bold text-muted">#{turno.id}</td>
                       <td className="fw-semibold">{turno.cajero}</td>
-                      <td>$ {(turno.montoApertura || 0).toFixed(2)}</td>
+                      <td>S/. {(turno.montoApertura || 0).toFixed(2)}</td>
                       <td>
                         {turno.montoCierre !== null && turno.montoCierre !== undefined
-                          ? `$ ${turno.montoCierre.toFixed(2)}`
+                          ? `S/. ${turno.montoCierre.toFixed(2)}`
                           : <span className="text-muted fst-italic">Pendiente</span>}
                       </td>
                       <td>{turno.fechaCreacion || turno.fechaApertura ? new Date(turno.fechaCreacion || turno.fechaApertura).toLocaleString() : '-'}</td>
