@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import TurnoService from '../services/TurnoService';
+import { exportarHistorialPDF } from '../utils/pdfExportPlugin';
 
 const HistorialTurnos = () => {
   const [turnos, setTurnos] = useState([]);
@@ -26,18 +27,39 @@ const HistorialTurnos = () => {
     fetchTurnos();
   }, []);
 
+  // Nueva función para manejar la exportación
+  const handleExportarPDF = () => {
+    if (turnos.length > 0) {
+      exportarHistorialPDF(turnos);
+    } else {
+      alert("No hay turnos registrados para exportar.");
+    }
+  };
+
   return (
     <div className="container mt-5">
       <div className="card shadow-sm border-0">
         <div className="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3">
           <h4 className="mb-0"><i className="bi bi-clock-history me-2"></i>Historial de Turnos</h4>
-          <button 
-            className="btn btn-outline-light btn-sm px-3" 
-            onClick={fetchTurnos}
-            disabled={loading}
-          >
-            {loading ? 'Cargando...' : 'Refrescar Datos'}
-          </button>
+          
+          {/* Contenedor para alinear los botones */}
+          <div className="d-flex gap-2">
+            <button 
+              className="btn btn-danger btn-sm px-3 shadow-sm" 
+              onClick={handleExportarPDF}
+              disabled={loading || turnos.length === 0}
+              title="Descargar reporte en formato PDF"
+            >
+              <i className="bi bi-file-earmark-pdf me-1"></i> Exportar a PDF
+            </button>
+            <button 
+              className="btn btn-outline-light btn-sm px-3" 
+              onClick={fetchTurnos}
+              disabled={loading}
+            >
+              {loading ? 'Cargando...' : 'Refrescar Datos'}
+            </button>
+          </div>
         </div>
         <div className="card-body p-0">
           <div className="table-responsive">
@@ -61,10 +83,10 @@ const HistorialTurnos = () => {
                     <tr key={turno.id}>
                       <td className="px-4 fw-bold text-muted">#{turno.id}</td>
                       <td className="fw-semibold">{turno.cajero}</td>
-                      <td>S/. {(turno.montoApertura || 0).toFixed(2)}</td>
+                      <td>$ {(turno.montoApertura || 0).toFixed(2)}</td>
                       <td>
                         {turno.montoCierre !== null && turno.montoCierre !== undefined
-                          ? `S/. ${turno.montoCierre.toFixed(2)}`
+                          ? `$ ${turno.montoCierre.toFixed(2)}`
                           : <span className="text-muted fst-italic">Pendiente</span>}
                       </td>
                       <td>{turno.fechaCreacion || turno.fechaApertura ? new Date(turno.fechaCreacion || turno.fechaApertura).toLocaleString() : '-'}</td>
