@@ -1,5 +1,7 @@
+//Plugin de Exportación a PDF para el Historial de Turnos de Caja
+
 import { jsPDF } from 'jspdf';
-import autoTable from 'jspdf-autotable'; // Importación directa de la función
+import autoTable from 'jspdf-autotable';
 
 export const exportarHistorialPDF = (turnos) => {
   const doc = new jsPDF('p', 'mm', 'a4');
