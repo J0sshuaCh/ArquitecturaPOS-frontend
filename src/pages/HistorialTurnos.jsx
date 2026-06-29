@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import TurnoService from '../services/TurnoService';
 import { exportarHistorialPDF } from '../utils/pdfExportPlugin';
 
@@ -24,7 +24,10 @@ const HistorialTurnos = () => {
   };
 
   useEffect(() => {
-    fetchTurnos();
+    TurnoService.obtenerHistorial()
+      .then((data) => setTurnos(data))
+      .catch((error) => console.error("Error al obtener el historial", error))
+      .finally(() => setLoading(false));
   }, []);
 
   // Nueva función para manejar la exportación
