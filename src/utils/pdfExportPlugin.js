@@ -24,9 +24,9 @@ export const exportarHistorialPDF = (turnos) => {
       ? new Date(turno.fechaCreacion || turno.fechaApertura).toLocaleString() 
       : '-';
 
-    const montoApertura = `$ ${(turno.montoApertura || 0).toFixed(2)}`;
+    const montoApertura = `S/. ${(turno.montoApertura || 0).toFixed(2)}`;
     const montoCierre = turno.montoCierre !== null && turno.montoCierre !== undefined
-      ? `$ ${turno.montoCierre.toFixed(2)}`
+      ? `S/. ${turno.montoCierre.toFixed(2)}`
       : 'Pendiente';
 
     return [
